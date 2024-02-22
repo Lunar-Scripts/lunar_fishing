@@ -1,5 +1,52 @@
-local function openSell()
+local function sell(index)
+    local amount = lib.inputDialog(locale('sell_fish_heading', Utils.getItemLabel(item.name), item.price), {
+        {
+            type = 'number',
+            label = locale('amount'),
+            min = 1,
+            required = true
+        }
+    })?[1] --[[@as number?]]
 
+    if not amount then
+        lib.showContext('sell_fish')
+        return
+    end
+
+    local success = lib.callback.await('lunar_fishing:sellFish', false, index)
+
+    if success then
+        ShowProgressBar(locale('selling'), 3000, false, {
+            dict = 'misscarsteal4@actor',
+            clip = 'actor_berating_loop'
+        })
+        ShowNotification(locale('sold_fish'), 'success')
+    else
+        ShowNotification(locale('not_enough_fish'), 'error')
+    end
+end
+
+local function openSell()
+    local options = {}
+
+    for index, fish in ipairs(Config.fish) do
+        if Framework.hasItem(fish.name) then
+            table.insert(options, {
+                title = Utils.getItemLabel(fish.name),
+                ---@diagnostic disable-next-line: unused-function, param-type-mismatch
+                description = type(fish.price) == 'number' and locale('fish_price', fish.price) 
+                            or locale('fish_price2', fish.price.min, fish.price.max),
+                onSelect = sell,
+                args = index
+            })
+        end
+    end
+
+    lib.registerContext({
+        id = 'sell_fish',
+        title = locale('sell_fish'),
+        options = options
+    })
 end
 
 do
