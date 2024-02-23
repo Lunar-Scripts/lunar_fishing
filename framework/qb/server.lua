@@ -4,18 +4,14 @@ Framework = { name = 'qb-core' }
 local sharedObject = exports['qb-core']:GetCoreObject()
 QBCore = sharedObject
 local player = {}
-local saved = {}
 
 ---@diagnostic disable-next-line: duplicate-set-field
 function Framework.getPlayerFromId(id)
-    if saved[id] then return saved[id] end
-
     local player = setmetatable({}, { __index = player })
     player.QBPlayer = sharedObject.Functions.GetPlayer(id)
     if not player.QBPlayer then return end
     player.source = id
 
-    saved[id] = player
     return player
 end
 
