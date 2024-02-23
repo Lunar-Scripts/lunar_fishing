@@ -13,7 +13,7 @@ local function sell(index)
         return
     end
 
-    local success = lib.callback.await('lunar_fishing:sellFish', false, index)
+    local success = lib.callback.await('lunar_fishing:sellFish', false, index, amount)
 
     if success then
         ShowProgressBar(locale('selling'), 3000, false, {
@@ -51,7 +51,22 @@ end
 
 do
     local function buy(index)
-        local success = lib.callback.await('lunar_fishing:buyRod', false, index)
+        local item = Config.fishingRods[index]
+        local amount = lib.inputDialog(locale('buy_rod_heading', Utils.getItemLabel(item.name), item.price), {
+            {
+                type = 'number',
+                label = locale('amount'),
+                min = 1,
+                required = true
+            }
+        })?[1] --[[@as number?]]
+    
+        if not amount then
+            lib.showContext('sell_fish')
+            return
+        end
+
+        local success = lib.callback.await('lunar_fishing:buyRod', false, index, amount)
 
         if success then
             ShowProgressBar(locale('buying'), 3000, false, {
@@ -90,7 +105,7 @@ lib.registerContext({
         {
             title = locale('level', GetCurrentLevel()),
             description = locale('level_desc'),
-            progress = GetCurrentLevelProgress(),
+            progress = math.max(GetCurrentLevelProgress(), 0.1),
             colorScheme = 'lime'
         },
         {
