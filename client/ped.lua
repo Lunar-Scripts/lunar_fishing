@@ -69,9 +69,11 @@ local function sellFish()
     lib.showContext('sell_fish')
 end
 
-local function buy(index)
-    local item = Config.fishingRods[index]
-    local amount = lib.inputDialog(locale('buy_rod_heading', Utils.getItemLabel(item.name), item.price), {
+---@param data { type: string, index: integer }
+local function buy(data)
+    local type, index in data
+    local item = Config[type][index]
+    local amount = lib.inputDialog(locale('buy_heading', Utils.getItemLabel(item.name), item.price), {
         {
             type = 'number',
             label = locale('amount'),
@@ -81,18 +83,18 @@ local function buy(index)
     })?[1] --[[@as number?]]
 
     if not amount then
-        lib.showContext('sell_fish')
+        lib.showContext(type == 'fishingRods' and 'buy_rods' or 'buy_baits')
         return
     end
 
-    local success = lib.callback.await('lunar_fishing:buyRod', false, index, amount)
+    local success = lib.callback.await('lunar_fishing:buy', false, data, amount)
 
     if success then
         ShowProgressBar(locale('buying'), 3000, false, {
             dict = 'misscarsteal4@actor',
             clip = 'actor_berating_loop'
         })
-        ShowNotification(locale('bought_rod'), 'success')
+        ShowNotification(locale('bought_item'), 'success')
     else
         ShowNotification(locale('not_enough_' .. Config.ped.buyAccount), 'error')
     end
@@ -108,7 +110,7 @@ local function buyRods()
             image = GetInventoryIcon(rod.name),
             disabled = rod.minLevel > GetCurrentLevel(),
             onSelect = buy,
-            args = index
+            args = { type = 'fishingRods', index = index }
         })
     end
 
@@ -122,6 +124,32 @@ local function buyRods()
     Wait(60)
 
     lib.showContext('buy_rods')
+end
+
+local function buyBaits()
+    local options = {}
+
+    for index, bait in ipairs(Config.baits) do
+        table.insert(options, {
+            title = Utils.getItemLabel(bait.name),
+            description = locale('bait_price', bait.price),
+            image = GetInventoryIcon(bait.name),
+            disabled = bait.minLevel > GetCurrentLevel(),
+            onSelect = buy,
+            args = { type = 'baits', index = index }
+        })
+    end
+
+    lib.registerContext({
+        id = 'buy_baits',
+        title = locale('buy_baits'),
+        menu = 'fisherman',
+        options = options
+    })
+
+    Wait(60)
+
+    lib.showContext('buy_baits')
 end
 
 local function open()
@@ -144,6 +172,13 @@ local function open()
                 icon = 'dollar-sign',
                 arrow = true,
                 onSelect = buyRods
+            },
+            {
+                title = locale('buy_baits'),
+                description = locale('buy_baits_desc'),
+                icon = 'worm',
+                arrow = true,
+                onSelect = buyBaits
             },
             {
                 title = locale('sell_fish'),
