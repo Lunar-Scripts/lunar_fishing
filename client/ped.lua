@@ -162,7 +162,7 @@ for _, coords in ipairs(Config.ped.locations) do
     Utils.createPed(coords, Config.ped.model, {
         {
             label = locale('open_fisherman'),
-            icon = 'fish',
+            icon = 'talk',
             onSelect = open
         }
     })
