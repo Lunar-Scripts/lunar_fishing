@@ -7,6 +7,15 @@ local function updated(l)
 end
 
 lib.callback('lunar_fishing:getLevel', false, updated)
+
+RegisterNetEvent('esx:playerLoaded', function()
+    lib.callback('lunar_fishing:getLevel', false, updated)
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    lib.callback('lunar_fishing:getLevel', false, updated)
+end)
+
 RegisterNetEvent('lunar_fishing:updateLevel', updated)
 
 function GetCurrentLevel()
