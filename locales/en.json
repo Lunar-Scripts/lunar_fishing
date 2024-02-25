@@ -33,6 +33,6 @@
     "no_bait": "You need to have a fishing bait.",
     "rod_broke": "You're fishing rod wasn't able to withstand the pressure and broke.",
     "nothing_to_sell": "You have nothing to sell.",
-    "anchor_boat": "Anchor boat",
-    "raise_anchor": "Raise anchor"
+    "anchor_boat": "[%s] - Anchor boat",
+    "raise_anchor": "[%s] - Raise anchor"
 }

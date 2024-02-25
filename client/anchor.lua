@@ -1,4 +1,5 @@
-local shown = false
+---@type boolean, CKeybind
+local shown, keybind = false, nil
 
 lib.onCache('vehicle', function(vehicle)
     if not vehicle then
@@ -9,14 +10,15 @@ lib.onCache('vehicle', function(vehicle)
 
         return
     end
-
+    
     if IsPedInAnyBoat(cache.ped) then
-        ShowUI(IsBoatAnchoredAndFrozen(vehicle) and locale('raise_anchor') or locale('anchor_boat'), 'anchor')
+        local localeName = IsBoatAnchoredAndFrozen(vehicle) and 'raise_anchor' or 'anchor_boat'
+        ShowUI(locale(localeName, keybind.currentKey), 'anchor')
         shown = true
     end
 end)
 
-lib.addKeybind({
+keybind = lib.addKeybind({
     name = 'anchor_toggle',
     description = 'Toggles the anchor on your boat.',
     defaultKey = 'G',
@@ -27,11 +29,11 @@ lib.addKeybind({
 
         if IsBoatAnchoredAndFrozen(cache.vehicle) then
             SetBoatAnchor(cache.vehicle, false)
-            ShowUI(locale('anchor_boat'), 'anchor')
+            ShowUI(locale('anchor_boat', keybind.currentKey), 'anchor')
         else
             SetBoatFrozenWhenAnchored(cache.vehicle, true)
             SetBoatAnchor(cache.vehicle, true)
-            ShowUI(locale('raise_anchor'), 'anchor')
+            ShowUI(locale('raise_anchor', keybind.currentKey), 'anchor')
         end
     end
 })
