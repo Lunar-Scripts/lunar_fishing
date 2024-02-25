@@ -4,6 +4,7 @@ An advanced fishing script that enchances the roleplay on your server!
 # Features
 * Supports ESX/QBCore
 * Create as many zones as you wish!
+* Freenlancer job
 * Boat renting included
 * ox_target/qtarget/qb-target support
 * Very low resmon - 0.0ms on idle
