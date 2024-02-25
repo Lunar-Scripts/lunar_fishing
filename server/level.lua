@@ -5,12 +5,12 @@ MySQL.ready(function()
     local data = MySQL.query.await('SELECT * FROM lunar_fishing')
 
     for _, entry in ipairs(data) do
-        levels[entry.identifier] = entry.xp
+        levels[entry.user_identifier] = entry.xp
     end
 end)
 
 local function save()
-    local query = 'UPDATE lunar_fishing SET xp = ? WHERE identifier = ?'
+    local query = 'UPDATE lunar_fishing SET xp = ? WHERE user_identifier = ?'
     local parameters = {}
     local size = 0
 
@@ -46,7 +46,7 @@ end)
 
 local function createPlayer(identifier)
     levels[identifier] = 1.0
-    MySQL.insert.await('INSERT INTO lunar_fishing (identifier, xp) VALUES(?, ?)', { identifier, levels[identifier] })
+    MySQL.insert.await('INSERT INTO lunar_fishing (user_identifier, xp) VALUES(?, ?)', { identifier, levels[identifier] })
 end
 
 lib.callback.register('lunar_fishing:getLevel', function(source)

@@ -11,17 +11,21 @@
 6. Import this in your database:
 
 INSERT INTO `items` (`name`, `label`, `weight`) VALUES
-	('contract', 'Contract', 100)
+	('graphite_rod', 'Graphite rod', 350),
+    ('grouper', 'Grouper', 3500),
+    ('mahi_mahi', 'Mahi Mahi', 3500),
+    ('basic_rod', 'Fishing rod', 250),
+    ('haddock', 'Haddock', 500),
+    ('artificial_bait', 'Artificial bait', 30),
+    ('trout', 'Trout', 750),
+    ('red_snapper', 'Red Snapper', 2500),
+    ('shark', 'Shark', 7500),
+    ('anchovy', 'Anchovy', 20),
+    ('salmon', 'Salmon', 1000),
+    ('tuna', 'Tuna', 10000),
+    ('piranha', 'Piranha', 1500),
+    ('worms', 'Worms', 10),
+    ('titanium_rod', 'Titanium rod', 450)
 ;
 
-4. Delete old owned_vehicles in database and import this incase of having problems:
-    CREATE TABLE `owned_vehicles` (
-        `owner` VARCHAR(60) NOT NULL,
-        `plate` varchar(12) NOT NULL,
-        `vehicle` longtext,
-        `type` VARCHAR(20) NOT NULL DEFAULT 'car',
-        `job` VARCHAR(20) NULL DEFAULT NULL,
-        `stored` TINYINT(1) NOT NULL DEFAULT '0',
-
-        PRIMARY KEY (`plate`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;a
+5. Import import.sql to your database.

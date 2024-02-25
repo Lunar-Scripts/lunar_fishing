@@ -8,20 +8,82 @@
 
 4. Add this to ox_inventory/data/items.lua:
 
-	['contract'] = {
-		label = 'Contract',
-		weight = 100,
-		stack = true
+	['basic_rod'] = {
+		label = 'Fishing rod',
+		stack = false,
+		weight = 250
 	},
 
-5. Delete old owned_vehicles in database and import this incase of having problems:
-    CREATE TABLE `owned_vehicles` (
-        `owner` VARCHAR(60) NOT NULL,
-        `plate` varchar(12) NOT NULL,
-        `vehicle` longtext,
-        `type` VARCHAR(20) NOT NULL DEFAULT 'car',
-        `job` VARCHAR(20) NULL DEFAULT NULL,
-        `stored` TINYINT(1) NOT NULL DEFAULT '0',
+	['graphite_rod'] = {
+		label = 'Graphite rod',
+		stack = false,
+		weight = 350
+	},
 
-        PRIMARY KEY (`plate`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;a
+	['titanium_rod'] = {
+		label = 'Titanium rod',
+		stack = false,
+		weight = 450
+	},
+
+	['worms'] = {
+		label = 'Worms',
+		weight = 10
+	},
+
+	['artificial_bait'] = {
+		label = 'Artificial bait',
+		weight = 30
+	},
+
+	['anchovy'] = {
+		label = 'Anchovy',
+		weight = 20
+	},
+
+	['grouper'] = {
+		label = 'Grouper',
+		weight = 3500
+	},
+
+	['haddock'] = {
+		label = 'Haddock',
+		weight = 500
+	},
+
+	['mahi_mahi'] = {
+		label = 'Mahi Mahi',
+		weight = 3500
+	},
+
+	['piranha'] = {
+		label = 'Piranha',
+		weight = 1500
+	},
+
+	['red_snapper'] = {
+		label = 'Red Snapper',
+		weight = 2500
+	},
+
+	['salmon'] = {
+		label = 'Salmon',
+		weight = 1000
+	},
+
+	['shark'] = {
+		label = 'Shark',
+		weight = 7500
+	},
+
+	['trout'] = {
+		label = 'Trout',
+		weight = 750
+	},
+
+	['tuna'] = {
+		label = 'Tuna',
+		weight = 10000
+	},
+
+5. Import import.sql to your database.
