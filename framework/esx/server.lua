@@ -68,7 +68,7 @@ function player:getItemCount(name)
 end
 
 function player:getAccountMoney(account)
-    return self.xPlayer.getAccount(account).money
+    return self.xPlayer.getAccount(account)?.money or 0
 end
 
 function player:addAccountMoney(account, amount)
