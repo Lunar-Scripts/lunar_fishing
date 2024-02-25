@@ -1,7 +1,5 @@
 Config = {}
 
----@type false | string | string[]
-Config.requiredJob = false
 Config.progressPerCatch = 0.05 -- The progress per one fish caught
 
 ---@class Fish
