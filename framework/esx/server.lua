@@ -52,11 +52,11 @@ function player:hasOneOfGroups(groups)
 end
 
 function player:addItem(name, count)
-    self.xPlayer.addInventoryItem(name, count)
+    self.xPlayer.addInventoryItem(name, count or 1)
 end
 
 function player:removeItem(name, count)
-    self.xPlayer.removeInventoryItem(name, count)
+    self.xPlayer.removeInventoryItem(name, count or 1)
 end
 
 function player:canCarryItem(name, count)
@@ -64,7 +64,7 @@ function player:canCarryItem(name, count)
 end
 
 function player:getItemCount(name)
-    return self.xPlayer.getInventoryItem(name).count
+    return self.xPlayer.getInventoryItem(name)?.count or 0
 end
 
 function player:getAccountMoney(account)

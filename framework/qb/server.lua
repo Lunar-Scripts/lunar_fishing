@@ -46,11 +46,11 @@ function player:hasOneOfGroups(groups)
 end
 
 function player:addItem(name, count)
-    self.QBPlayer.Functions.AddItem(name, count)
+    self.QBPlayer.Functions.AddItem(name, count or 1)
 end
 
 function player:removeItem(name, count)
-    self.QBPlayer.Functions.RemoveItem(name, count)
+    self.QBPlayer.Functions.RemoveItem(name, count or 1)
 end
 
 function player:canCarryItem(name, count)
