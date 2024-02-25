@@ -150,6 +150,12 @@ Config.renting = {
         { model = `dinghy`, price = 750, image = 'https://i.postimg.cc/ZKzjZgj0/164px-Dinghy2.webp'  },
         { model = `tug`, price = 1250, image = 'https://i.postimg.cc/jq7vpKHG/164px-Tug.webp' }
     },
+    blip = {
+        name = 'Boat Rental',
+        sprite = 410,
+        color = 74,
+        scale = 0.75
+    },
 
     ---@type { coords: vector4, spawn: vector4 }[]
     locations = {

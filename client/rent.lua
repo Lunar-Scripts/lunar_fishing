@@ -46,7 +46,7 @@ local function rentVehicle(index)
     if success then
         spawnBoat(boat)
     else
-        ShowNotification(locale('not_enough_' .. Config.renting.account))
+        ShowNotification(locale('not_enough_' .. Config.renting.account), 'error')
     end
 end
 
@@ -74,10 +74,11 @@ for _, location in ipairs(Config.renting.locations) do
     Utils.createPed(location.coords, Config.renting.model, {
         {
             label = locale('rent_boat'),
-            icon = 'boat',
+            icon = 'ship',
             onSelect = function()
                 lib.showContext('rent_boat')
             end
         }
     })
+    Utils.createBlip(location.coords, Config.renting.blip)
 end
