@@ -133,9 +133,9 @@ local function open()
         options = {
             {
                 title = locale('level', level),
-                description = locale('level_desc', 100 - progress),
+                description = locale('level_desc', math.floor(100 - progress)),
                 icon = 'chart-simple',
-                progress = math.max(progress, 0.01) * 100,
+                progress = math.max(progress, 0.01),
                 colorScheme = 'lime'
             },
             {

@@ -29,6 +29,20 @@ local function save()
 end
 
 lib.cron.new('*/10 * * * *', save)
+AddEventHandler('txAdmin:events:serverShuttingDown', save)
+
+AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
+    if eventData.secondsRemaining ~= 60 then return end
+
+	save()
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+	if resource == cache.resource then
+		save()
+	end
+end)
+
 
 local function createPlayer(identifier)
     levels[identifier] = 1.0
@@ -61,7 +75,7 @@ function AddPlayerLevel(player, amount)
         TriggerClientEvent('lunar_fishing:showNotification', player.source, locale('unlocked_level'), 'success')
     end
 
-    TriggerClientEvent('lunar_fishing:updateLevel', levels[identifier])
+    TriggerClientEvent('lunar_fishing:updateLevel', player.source, levels[identifier])
 end
 
 ---@param player Player
