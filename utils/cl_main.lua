@@ -103,7 +103,7 @@ end
 function Utils.createBlip(coords, data)
     if not data then return end
 
-    local blip = AddBlipForCoord(coords.x, coords.y)
+    local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
 
     SetBlipSprite (blip, data.sprite)
     SetBlipDisplay(blip, 4)
@@ -114,6 +114,21 @@ function Utils.createBlip(coords, data)
     BeginTextCommandSetBlipName('STRING')
     AddTextComponentSubstringPlayerName(data.name)
     EndTextCommandSetBlipName(blip)
+
+    return blip
+end
+
+---@param coords vector3 | vector4
+---@param scale number
+---@param color integer
+function Utils.createRadiusBlip(coords, scale, color)
+    local blip = AddBlipForRadius(coords.x, coords.y, coords.z, scale)
+
+    SetBlipDisplay(blip, 4)
+    SetBlipScale  (blip, scale)
+    SetBlipColour (blip, color)
+    SetBlipAsShortRange(blip, true)
+    SetBlipAlpha(blip, 150)
 
     return blip
 end
@@ -175,9 +190,9 @@ function Utils.addKeybind(data)
     return bind --[[@as Keybind]]
 end
 
-local labels
+local labels = {}
 
-lib.callback('lunar_bridge:getItemLabels', false, function(data)
+lib.callback('lunar_fishing:getItemLabels', false, function(data)
     labels = data
 end)
 

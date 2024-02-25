@@ -1,23 +1,23 @@
 ---@param source integer
----@param itemIndex integer
+---@param fishName string
 ---@param amount integer
-lib.callback.register('lunar_cryptomining:sellFish', function(source, itemIndex, amount)
-    local item = Config.fish[itemIndex]
+lib.callback.register('lunar_fishing:sellFish', function(source, fishName, amount)
+    local item = Config.fish[fishName]
     local price = type(item.price) == 'number' and item.price or math.random(item.price.min, item.price.max)
 
     ---@cast price number
 
-    if not item then return end
+    if not item or amount <= 0 then return end
 
     local player = Framework.getPlayerFromId(source)
     
     if not player then return end
     
-    if player:getItemCount(item.name) >= amount then
+    if player:getItemCount(fishName) >= amount then
         SetTimeout(3000, function()
-            if player:getItemCount(item.name) < amount then return end
+            if player:getItemCount(fishName) < amount then return end
 
-            player:removeItem(item.name, amount)
+            player:removeItem(fishName, amount)
             player:addAccountMoney(Config.ped.sellAccount, price * amount)
         end)
 
@@ -29,15 +29,16 @@ end)
 
 ---@param source integer
 ---@param amount integer
-lib.callback.register('lunar_fishing:buyRod', function(source, amount)
-    local item = Config.fishingRods[itemIndex]
+lib.callback.register('lunar_fishing:buyRod', function(source, index, amount)
+    local item = Config.fishingRods[index]
     local price = item.price * amount
 
-    if not item then return end
+    if not item or amount <= 0 then return end
 
     local player = Framework.getPlayerFromId(source)
     
-    if not player then return end
+    if not player
+    or not GetPlayerLevel(player) >= item.minLevel then return end
     
     if player:getAccountMoney(Config.ped.buyAccount) >= price then
         SetTimeout(3000, function()
