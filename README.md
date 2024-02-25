@@ -1,21 +1,19 @@
 # lunar_fishing
-Highly optimized garage system that allows you to add as many garages as you wish!
+An advanced fishing script that enchances the roleplay on your server!
 
 # Features
 * Supports ESX/QBCore
-* Multiple garage/impound types (garage, air, boat)
-* Contract system for selling/transfering vehicles
+* Create as many zones as you wish!
+* Boat renting included
 * ox_target/qtarget/qb-target support
 * Very low resmon - 0.0ms on idle
 * Installation files included
 
 # Dependencies: 
 * es_extended/qb-core
-* ox_lib,
-* esx_vehicleshop/qb-vehicleshop (Can be swapped for vehicleshop of choice by editing server/db.lua)
+* ox_lib
+* ox_target/qtarget/qb-target
 
-### Preview:
-
-### Documentation: https://lunar-scripts.gitbook.io/lunar-scripts/free-scripts/lunar_fishing
+### Preview: https://youtu.be/XUfPRGEm9_I
 
 ### Discord: https://discord.gg/zDK4CHQ56N
