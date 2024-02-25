@@ -1,4 +1,4 @@
-local level
+local level = 1
 
 ---@param l number
 local function updated(l)
