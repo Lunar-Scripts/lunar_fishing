@@ -47,7 +47,7 @@ local function getBestBait(player)
     for i = #Config.baits, 1, -1 do
         local bait = Config.baits[i]
 
-        if player:getItemCount(bait) > 0 then
+        if player:getItemCount(bait.name) > 0 then
             return bait
         end
     end

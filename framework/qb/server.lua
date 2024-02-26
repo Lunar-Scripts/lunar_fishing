@@ -31,6 +31,15 @@ function Framework.getItemLabel(item)
     return sharedObject.Shared.Items[item]?.label
 end
 
+function Framework.getItems()
+    if ox_inventory then
+        return exports.ox_inventory:Items()
+    elseif qs_inventory then
+        return exports['qs-inventory']:GetItemList()
+    end
+    return sharedObject.Shared.Items
+end
+
 function player:hasGroup(name)
     return sharedObject.Functions.HasPermission(self.source, name) == name
 end
