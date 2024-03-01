@@ -25,6 +25,7 @@ local function spawnBoat(boat)
         local coords = vector3(closest.spawn.x, closest.spawn.y, closest.spawn.z - 1.0)
 
         Framework.spawnVehicle(boat.model, coords, closest.spawn.w, function(vehicle)
+            SetVehicleOwner(GetVehicleNumberPlateText(vehicle))
             TaskWarpPedIntoVehicle(cache.ped, vehicle, -1)
         end)
     end
