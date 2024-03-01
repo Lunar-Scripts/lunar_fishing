@@ -55,8 +55,6 @@ function SetVehicleFuel(vehicle, fuelLevel)
 end
 
 function SetVehicleOwner(plate)
-    if not Config.UseKeySystem then return end
-
     if Framework.name == 'es_extended' then
         -- Not implemented
     elseif Framework.name == 'qb-core' then
