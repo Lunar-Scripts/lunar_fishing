@@ -53,6 +53,8 @@ local function updateZones(level)
                     coords = coords,
                     radius = data.radius,
                     onEnter = function()
+                        if currentZone?.index == index and currentZone?.locationIndex == index then return end
+
                         currentZone = { index = index, locationIndex = locationIndex }
     
                         if data.message then
@@ -64,7 +66,7 @@ local function updateZones(level)
                         or currentZone?.locationIndex ~= locationIndex then return end
     
                         currentZone = nil
-    
+
                         if data.message then
                             ShowNotification(data.message.exit, 'inform')
                         end
