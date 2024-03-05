@@ -39,18 +39,11 @@ function ShowProgressBar(text, duration, canCancel, anim, prop)
     })
 end
 
-function GetVehicleFuel(vehicle)
-    if GetResourceState('LegacyFuel') == 'started' then
-        local fuelLevel = exports['LegacyFuel']:GetFuel(vehicle, fuelLevel)
-        return math.floor(fuelLevel * 100) / 100
-    else
-        return GetVehicleFuelLevel(vehicle)
-    end
-end
-
 function SetVehicleFuel(vehicle, fuelLevel)
     if GetResourceState('LegacyFuel') == 'started' then
         exports['LegacyFuel']:SetFuel(vehicle, fuelLevel)
+    elseif GetResourceState('ox_fuel') then
+        Entity(vehicle).state.fuel = fuelLevel
     end
 end
 
