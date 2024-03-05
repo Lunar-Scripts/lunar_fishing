@@ -37,5 +37,8 @@
     "raise_anchor": "[%s] - Anker hochholen",
     "buy_baits": "Kaufe Köder",
     "buy_baits_desc": "Klicke hier um Angelköder zu kaufen.",
-    "bait_price": "Klick hier um den Köder für %s$ zu kaufen."
+    "bait_price": "Klick hier um den Köder für %s$ zu kaufen.",
+    "return_boat": "[%s] - Boot zurückgeben",
+    "return_content": "Möchten Sie dieses Boot wirklich zurückgeben?  \n  Der Verleih wird Ihnen dafür %s$ zahlen.",
+    "returned_boat": "Sie haben das Boot erfolgreich zurückgegeben."
 }

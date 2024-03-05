@@ -154,6 +154,8 @@ Config.renting = {
         color = 74,
         scale = 0.75
     },
+    returnDivider = 5, -- Players can return it and get some cash back
+    returnRadius = 30.0, -- The save radius
 
     ---@type { coords: vector4, spawn: vector4 }[]
     locations = {

@@ -37,5 +37,8 @@
     "raise_anchor": "[%s] - Raise anchor",
     "buy_baits": "Buy fishing baits",
     "buy_baits_desc": "Click to buy new fishing baits.",
-    "bait_price": "Click to buy this bait for %s$."
+    "bait_price": "Click to buy this bait for %s$.",
+    "return_boat": "[%s] - Return boat",
+    "return_content": "Do you really want to return this boat?  \n  The rental will pay you %s$ in exchange.",
+    "returned_boat": "You've successfully returned the boat."
 }

@@ -27,6 +27,8 @@ local function spawnBoat(boat)
         Framework.spawnVehicle(boat.model, coords, closest.spawn.w, function(vehicle)
             SetVehicleOwner(GetVehicleNumberPlateText(vehicle))
             TaskWarpPedIntoVehicle(cache.ped, vehicle, -1)
+            SetVehicleFuel(vehicle, 100.0)
+            TriggerServerEvent('lunar_fishing:registerBoat', NetworkGetNetworkIdFromEntity(vehicle))
         end)
     end
 end
@@ -71,6 +73,76 @@ do
     })
 end
 
+---@CPoint?
+local point
+local shown = false
+
+local function getBoatPrice(vehicle)
+    for _, boat in ipairs(Config.renting.boats) do
+        if boat.model == GetEntityModel(vehicle) then
+            return boat.price
+        end
+    end
+end
+
+local bind = lib.addKeybind({
+    name = 'fishing_interaction',
+    description = 'The main interaction keybind.',
+    defaultKey = 'E',
+    defaultMapper = 'keyboard',
+    onReleased = function()
+        if not point then return end
+
+        local price = getBoatPrice(cache.vehicle)
+
+        if not price then return end
+
+        local confirmed = lib.alertDialog({
+            header = locale('return_boat'),
+            content = locale('return_content', math.floor(price / Config.renting.returnDivider)),
+            cancel = true,
+            centered = true
+        }) == 'confirm'
+
+        if not confirmed then return end
+
+        local netId = NetworkGetNetworkIdFromEntity(cache.vehicle)
+        local success = lib.callback.await('lunar_fishing:returnVehicle', false, netId)
+
+        if success then
+            TaskLeaveAnyVehicle(cache.ped)
+            ShowNotification(locale('returned_boat'), 'success')
+        end
+    end
+})
+
+---@parama coords vector4
+local function createSaveZone(coords)
+    lib.points.new({
+        coords = coords,
+        distance = Config.renting.returnRadius or 10.0,
+        onEnter = function(self)
+            point = self
+
+            if not getBoatPrice(cache.vehicle) then return end
+
+            ShowUI(locale('return_boat', bind:getCurrentKey()), 'rotate-left')
+            shown = true
+        end,
+        onExit = function(self)
+            if point ~= self then return end
+
+            point = nil
+
+            if not shown then return end
+
+            HideUI()
+            shown = false
+        end
+    })
+end
+
+
 for _, location in ipairs(Config.renting.locations) do
     Utils.createPed(location.coords, Config.renting.model, {
         {
@@ -82,4 +154,5 @@ for _, location in ipairs(Config.renting.locations) do
         }
     })
     Utils.createBlip(location.coords, Config.renting.blip)
+    createSaveZone(location.spawn)
 end
