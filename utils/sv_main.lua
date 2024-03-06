@@ -24,13 +24,16 @@ function Utils.randomFromTable(t)
     return t[index], index
 end
 
+---@param source integer
+---@param xPlayer Player 
+---@param message string
 function Utils.logToDiscord(source, xPlayer, message)
     if SvConfig.Webhook == 'WEBHOOK_HERE' then return end
 
     local connect = {
         {
             ["color"] = "16768885",
-            ["title"] = GetPlayerName(source) .. " (" .. xPlayer:GetIdentifier() .. ")",
+            ["title"] = GetPlayerName(source) .. " (" .. xPlayer:getIdentifier() .. ")",
             ["description"] = message,
             ["footer"] = {
                 ["text"] = os.date('%H:%M - %d. %m. %Y', os.time()),
