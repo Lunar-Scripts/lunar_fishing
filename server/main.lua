@@ -91,10 +91,15 @@ for _, rod in ipairs(Config.fishingRods) do
             busy[source] = nil
             return
         end
-
-        player:removeItem(bait.name, 1)
-
+        
         local fishName = getRandomFish(fishList)
+
+        if not player:canCarryItem(fishName, 1) then
+            busy[source] = nil
+            return
+        end
+            
+        player:removeItem(bait.name, 1)
         local success = lib.callback.await('lunar_fishing:itemUsed', source, bait, Config.fish[fishName])
 
         if success then
