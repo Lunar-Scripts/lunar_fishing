@@ -105,7 +105,7 @@ for _, rod in ipairs(Config.fishingRods) do
         if success then
             player:addItem(fishName, 1)
             AddPlayerLevel(player, Config.progressPerCatch)
-            Utils.logToDiscord(source, player, ('Caught a %s.'):format(Utils.getItemLabel(fishName)))
+            Utils.logToDiscord(source, player, ('Caught a (**%s**)'):format(Utils.getItemLabel(fishName)))
         elseif math.random(100) <= rod.breakChance then
             player:removeItem(rod.name, 1)
             TriggerClientEvent('lunar_fishing:showNotification', source, locale('rod_broke'), 'error')
