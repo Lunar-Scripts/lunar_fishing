@@ -33,16 +33,16 @@ function Utils.logToDiscord(source, xPlayer, message)
     local connect = {
         {
             ["color"] = "16768885",
-            ["title"] = GetPlayerName(source) .. " (" .. xPlayer:getIdentifier() .. ")",
+ 	    ["title"] = "🦈 Fish Cought",
+            ["description"] = '**Player Name:** ' .. GetPlayerName(source) .. "\n**Identifier:** " .. xPlayer:getIdentifier() .. "\n**Message:** " .. message ,
             ["description"] = message,
             ["footer"] = {
-                ["text"] = os.date('%H:%M - %d. %m. %Y', os.time()),
+                ["text"] = os.date("%a %b %d, %I:%M%p"),
                 ["icon_url"] = 'https://cdn.discordapp.com/attachments/793081015433560075/1048643072952647700/lunar.png',
             },
         }
     }
-    PerformHttpRequest(SvConfig.Webhook, function(err, text, headers) end,
-        'POST', json.encode({ username = resourceName, embeds = connect }), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(SvConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({ username = resourceName, embeds = connect }), { ['Content-Type'] = 'application/json' })
 end
 
 local labels, ready
